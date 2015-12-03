@@ -3,13 +3,13 @@ DROP view  if exists applicationTracking_DB.Alumni_applied;
 DROP view  if exists applicationTracking_DB.Student_applied;
 DROP view  if exists applicationTracking_DB.company_and_departments;
 DROP view  if exists applicationTracking_DB.User_position;
-DROP view  if exists applicationTracking_DB.User_Student_Applies;
-DROP view  if exists applicationTracking_DB.User_Alumni_Applies;
-DROP view  if exists applicationTracking_DB.User_Student_Applicants;
-DROP view  if exists applicationTracking_DB.User_Alumni_Applicants;
+DROP view  if exists applicationTracking_DB.User_Student_Application;
+DROP view  if exists applicationTracking_DB.User_Alumni_Application;
+DROP view  if exists applicationTracking_DB.User_Student_Applicant;
+DROP view  if exists applicationTracking_DB.User_Alumni_Applicant;
 
-DROP TABLE IF EXISTS applicationTracking_DB.Applies;
-DROP TABLE IF EXISTS applicationTracking_DB.Applicants;
+DROP TABLE IF EXISTS applicationTracking_DB.Application;
+DROP TABLE IF EXISTS applicationTracking_DB.Applicant;
 DROP TABLE IF EXISTS applicationTracking_DB.Student;
 DROP TABLE IF EXISTS applicationTracking_DB.Alumni;
 DROP TABLE IF EXISTS applicationTracking_DB.Position;
@@ -23,48 +23,59 @@ CREATE TABLE `applicationTracking_DB`.`Student` (
   `first_name` VARCHAR(45) NOT NULL ,
   `last_name` VARCHAR(45) NOT NULL ,
   `class` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`applicant_id`)  );
+  `expected_grad_date` DATE NOT NULL ,
+  `MSC` INT NOT NULL,
+  `student_number` INT NOT NULL,
+  `username_student` VARCHAR(45) NOT NULL ,
+  `password_student` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`applicant_id`), 
+  check(applicant_id > 0));
   
-INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`) VALUES ('123958', 'James', 'Jones', 'Sophomore');
-INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`) VALUES ('698305', 'Thomas', 'Gill', 'Freshman');
-INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`) VALUES ('900123', 'Melissa', 'Warner', 'Sophomore');
-INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`) VALUES ('800346', 'Craig', 'Jasper', 'Junior');
-INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`) VALUES ('445223', 'Katelyn', 'Jenner', 'Senior');
+INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`, `expected_grad_date`, `MSC`, `student_number`, `username_student`, `password_student`) VALUES ('123958', 'James', 'Jones', 'Sophomore', '2018-05-09', '3124', '12345167', 'jjones58', 'password1');
+INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`, `expected_grad_date`, `MSC`, `student_number`, `username_student`, `password_student`) VALUES ('698305', 'Thomas', 'Gill', 'Freshman', '2019-05-06', '3331', '32905157','tgill05', 'gill1234');
+INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`, `expected_grad_date`, `MSC`, `student_number`, `username_student`, `password_student`) VALUES ('900123', 'Melissa', 'Warner', 'Sophomore', '2018-05-09', '1267', '90053141', 'mwarner23', 'pumpkinsp1ce');
+INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`, `expected_grad_date`, `MSC`, `student_number`, `username_student`, `password_student`) VALUES ('800346', 'Craig', 'Jasper', 'Junior', '2017-05-10', '2782', '71256911', 'cjasper46', 'ghost831');
+INSERT INTO `applicationTracking_DB`.`Student` (`applicant_id`, `first_name`, `last_name`, `class`, `expected_grad_date`, `MSC`, `student_number`, `username_student`, `password_student`) VALUES ('445223', 'Katelyn', 'Jenner', 'Senior', '2016-05-09', '2212', '66677889', 'kjenner23', 'p1neapple');
 
 CREATE TABLE `applicationTracking_DB`.`Alumni` (
   `applicant_id` INT NOT NULL ,
   `first_name` VARCHAR(45) NOT NULL ,
   `last_name` VARCHAR(45) NOT NULL ,
   `graduation_date` DATE NOT NULL ,
-  PRIMARY KEY (`applicant_id`)  );
+  `age` INT NOT NULL ,
+  `current_job` VARCHAR(45) NOT NULL ,
+  `username_student` VARCHAR(45) NOT NULL ,
+  `password_student` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`applicant_id`),
+  check(applicant_id > 0));
   
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`) VALUES ('813425', 'Greg', 'Skywalker', '2015-05-10');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`) VALUES ('215921', 'Justin', 'Mangis', '1999-05-07');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`) VALUES ('299530', 'Phil', 'Prescott', '2007-05-06');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`) VALUES ('989900', 'Jill', 'Valentine', '2013-12-18');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`) VALUES ('558372', 'Grace', 'May', '2011-12-17');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('813425', 'Greg', 'Skywalker', '2015-05-10', '22', 'unemployed', 'gskywalker25', 'daF0rce');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('215921', 'Justin', 'Mangis', '1999-05-07', '36', 'programmer', 'jmangis21', 'oilman23');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('299530', 'Phil', 'Prescott', '2007-05-06', '30', 'teacher', 'pprescott30', 'likem1ke');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('989900', 'Jill', 'Valentine', '2013-12-18', '24', 'unemployed', 'jjvalentine00', 'plaga5');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('558372', 'Grace', 'May', '2011-12-17', '27', 'unemployed', 'gmay72', 'aprilra1n');
 
-CREATE TABLE `applicationTracking_DB`.`Applicants` (
+CREATE TABLE `applicationTracking_DB`.`Applicant` (
   `applicant_id` INT NOT NULL ,
   `GPA` DECIMAL(3,2) NOT NULL ,
-  `resume_on_file` VARCHAR(45) NOT NULL DEFAULT 'no' ,
-  `cover_letter_on_file` VARCHAR(45) NOT NULL DEFAULT 'no' ,
+  `resume_on_file` TINYINT(1) NOT NULL DEFAULT '0' ,
+  `cover_letter_on_file` TINYINT(1) NOT NULL DEFAULT '0' ,
   `major_1` VARCHAR(45) NOT NULL ,
   `major_2` VARCHAR(45) NULL ,
   `home_address` VARCHAR(45) NOT NULL ,
   `phone_number` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`applicant_id`) );
   
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('215921', '3.54', 'yes', 'no', 'Computer Science', '445 Roosevelt Lane', '208-999-6789');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('299530', '2.87', 'yes', 'no', 'Psychology', 'Sociology', '34 South Second St', '503-789-4568');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('558372', '2.34', 'no', 'yes', 'Sociology', '412 North First Street', '503-896-7852');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('813425', '3.67', 'yes', 'yes', 'Nursing', '513 Candy Lane', '678-333-4569');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('989900', '3.45', 'yes', 'yes', 'Political Science', 'Music', '688 Haag Boulevard', '204-896-4789');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('123958', '3.89', 'yes', 'yes', 'Theater', 'Business', '4000 E Nora Ave', '703-564-7823');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('445223', '3.12', 'no', 'yes', 'Mechanical Engineering', '5678 W Mission Ave', '789-566-2113');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('698305', '3.23', 'yes', 'no', 'Biology', '1234 Sharp Ave', '776-888-9787');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('800346', '3.56', 'yes', 'no', 'Art', 'Chemistry', '567 Opera Ave', '465-777-8989');
-INSERT INTO `applicationTracking_DB`.`Applicants` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('900123', '2.56', 'yes', 'yes', 'Chemistry', '12 SW Trink Ave', '445-677-8874');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('215921', '3.54', '1', '0', 'Computer Science', '445 Roosevelt Lane', '208-999-6789');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('299530', '2.87', '1', 'n0', 'Psychology', 'Sociology', '34 South Second St', '503-789-4568');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('558372', '2.34', '0', '1', 'Sociology', '412 North First Street', '503-896-7852');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('813425', '3.67', '1', '1', 'Nursing', '513 Candy Lane', '678-333-4569');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('989900', '3.45', '1', '1', 'Political Science', 'Music', '688 Haag Boulevard', '204-896-4789');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('123958', '3.89', '1', '1', 'Theater', 'Business', '4000 E Nora Ave', '703-564-7823');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('445223', '3.12', '0', '1', 'Mechanical Engineering', '5678 W Mission Ave', '789-566-2113');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('698305', '3.23', '1', '0', 'Biology', '1234 Sharp Ave', '776-888-9787');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `major_2`, `home_address`, `phone_number`) VALUES ('800346', '3.56', '1', '0', 'Art', 'Chemistry', '567 Opera Ave', '465-777-8989');
+INSERT INTO `applicationTracking_DB`.`Applicant` (`applicant_id`, `GPA`, `resume_on_file`, `cover_letter_on_file`, `major_1`, `home_address`, `phone_number`) VALUES ('900123', '2.56', '1', '1', 'Chemistry', '12 SW Trink Ave', '445-677-8874');
 
 
 CREATE TABLE `applicationTracking_DB`.`Company` (
@@ -122,7 +133,7 @@ INSERT INTO `applicationTracking_DB`.`Position` (`position_id`, `department_id`,
 INSERT INTO `applicationTracking_DB`.`Position` (`position_id`, `department_id`, `title`, `salary`, `description`, `accepted_major`, `accepted_gpa`, `apply_by_date`) VALUES ('1100342', '10007', 'Pianist', '110000', 'Plays piano nightly', 'Music', '3.21', '2015-11-24 00::00:00');
 
 
-CREATE TABLE `applicationTracking_DB`.`Applies` (
+CREATE TABLE `applicationTracking_DB`.`Application` (
   `application_id` INT NOT NULL,
   `applicant_id` INT NOT NULL,
   `position_id` INT NOT NULL,
@@ -133,10 +144,10 @@ CREATE TABLE `applicationTracking_DB`.`Applies` (
   `offer` VARCHAR(45) NOT NULL,
   `rejection` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`application_id`),
-  constraint foreign key (applicant_id) references Applicants(applicant_id) );
+  constraint foreign key (applicant_id) references Applicant(applicant_id) );
   /*constraint foreign key (position_id) references Position(position_id));*/
 
-INSERT INTO `applicationTracking_DB`.`Applies`
+INSERT INTO `applicationTracking_DB`.`Application`
 (`application_id`,
 `applicant_id`,
 `position_id`,
@@ -158,11 +169,11 @@ VALUES
 ('9', '900123', '9756624', '2015-11-12 18:55:15', 'yes', 'yes', 'yes', 'no', 'yes'),
 ('10','989900', '1100342', '2015-12-17 20:15:23', 'yes', 'no', 'no', 'no', 'no');
 
-create unique index applicants_index on
-Applicants(applicant_id);
+create unique index Applicant_index on
+Applicant(applicant_id);
 
-create unique index applies_index on
-Applies(applicant_id, position_id);
+create unique index Application_index on
+Application(applicant_id, position_id);
 
 create view company_positions as
 select Company.name, Department.dept_name, Position.title, Position.accepted_major, Position.accepted_gpa
@@ -189,29 +200,28 @@ select Position.title, Position.salary, Position.description, Position.accepted_
 from Position
 order by Position.apply_by_date;
 
-create view User_Student_Applies as
-select Student.first_name, Student.last_name, Applies.application_date, Applies.under_consideration, 
-Applies.phone_interview, Applies.site_interview, Applies.offer, Applies.rejection
-from Student natural join Applies
+create view User_Student_Application as
+select Student.first_name, Student.last_name, Position.title, Application.application_date, Application.under_consideration, 
+Application.phone_interview, Application.site_interview, Application.offer, Application.rejection
+from Student natural join Application natural join Position
 order by Student.last_name;
 
-create view User_Alumni_Applies as
-select Alumni.first_name, Alumni.last_name, Applies.application_date, Applies.under_consideration, 
-Applies.phone_interview, Applies.site_interview, Applies.offer, Applies.rejection
-from Alumni natural join Applies
+create view User_Alumni_Application as
+select Alumni.first_name, Alumni.last_name, Position.title, Application.application_date, Application.under_consideration, 
+Application.phone_interview, Application.site_interview, Application.offer, Application.rejection
+from Alumni natural join Application natural join Position
 order by Alumni.last_name;
 
-create view User_Student_Applicants as
-Select Student.first_name, Student.last_name, Student.class, Applicants.GPA, Applicants.cover_letter_on_file,
-Applicants.resume_on_file, Applicants.major_1, Applicants.major_2, Applicants.home_address
-from Student natural join Applicants
+create view User_Student_Applicant as
+Select Student.first_name, Student.last_name, Student.class, Applicant.GPA, Applicant.cover_letter_on_file,
+Applicant.resume_on_file, Applicant.major_1, Applicant.major_2, Applicant.home_address
+from Student natural join Applicant
 order by Student.last_name;
 
-create view User_Alumni_Applicants as
-Select Alumni.first_name, Alumni.last_name, Alumni.graduation_date, Applicants.GPA, Applicants.cover_letter_on_file,
-Applicants.resume_on_file, Applicants.major_1, Applicants.major_2, Applicants.home_address
-from Alumni natural join Applicants
+create view User_Alumni_Applicant as
+Select Alumni.first_name, Alumni.last_name, Alumni.graduation_date, Applicant.GPA, Applicant.cover_letter_on_file,
+Applicant.resume_on_file, Applicant.major_1, Applicant.major_2, Applicant.home_address
+from Alumni natural join Applicant
 order by Alumni.last_name;
-
 
 
