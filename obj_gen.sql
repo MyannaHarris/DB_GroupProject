@@ -44,16 +44,16 @@ CREATE TABLE `applicationTracking_DB`.`Alumni` (
   `graduation_date` DATE NOT NULL ,
   `age` INT NOT NULL ,
   `current_job` VARCHAR(45) NOT NULL ,
-  `username_student` VARCHAR(45) NOT NULL ,
-  `password_student` VARCHAR(45) NOT NULL ,
+  `username_alumni` VARCHAR(45) NOT NULL ,
+  `password_alumni` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`applicant_id`),
   check(applicant_id > 0));
   
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('813425', 'Greg', 'Skywalker', '2015-05-10', '22', 'unemployed', 'gskywalker25', 'daF0rce');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('215921', 'Justin', 'Mangis', '1999-05-07', '36', 'programmer', 'jmangis21', 'oilman23');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('299530', 'Phil', 'Prescott', '2007-05-06', '30', 'teacher', 'pprescott30', 'likem1ke');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('989900', 'Jill', 'Valentine', '2013-12-18', '24', 'unemployed', 'jjvalentine00', 'plaga5');
-INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_student`, `password_student`) VALUES ('558372', 'Grace', 'May', '2011-12-17', '27', 'unemployed', 'gmay72', 'aprilra1n');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_alumni`, `password_alumni`) VALUES ('813425', 'Greg', 'Skywalker', '2015-05-10', '22', 'unemployed', 'gskywalker25', 'daF0rce');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_alumni`, `password_alumni`) VALUES ('215921', 'Justin', 'Mangis', '1999-05-07', '36', 'programmer', 'jmangis21', 'oilman23');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_alumni`, `password_alumni`) VALUES ('299530', 'Phil', 'Prescott', '2007-05-06', '30', 'teacher', 'pprescott30', 'likem1ke');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_alumni`, `password_alumni`) VALUES ('989900', 'Jill', 'Valentine', '2013-12-18', '24', 'unemployed', 'jjvalentine00', 'plaga5');
+INSERT INTO `applicationTracking_DB`.`Alumni` (`applicant_id`, `first_name`, `last_name`, `graduation_date`, `age`, `current_job`,`username_alumni`, `password_alumni`) VALUES ('558372', 'Grace', 'May', '2011-12-17', '27', 'unemployed', 'gmay72', 'aprilra1n');
 
 CREATE TABLE `applicationTracking_DB`.`Applicant` (
   `applicant_id` INT NOT NULL ,
@@ -223,5 +223,4 @@ Select Alumni.first_name, Alumni.last_name, Alumni.graduation_date, Applicant.GP
 Applicant.resume_on_file, Applicant.major_1, Applicant.major_2, Applicant.home_address
 from Alumni natural join Applicant
 order by Alumni.last_name;
-
 
